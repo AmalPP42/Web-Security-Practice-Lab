@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>XSS Vulnerability - Vulnerability Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body class="img js-fullheight" style="background-image: url('{{ url_for('static', filename='images/bg.jpg') }}');">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center mb-4">
+                <h2 class="heading-section">Cross-Site Scripting (XSS)</h2>
+                <p class="text-warning">⚠️ This is a vulnerable endpoint for educational purposes</p>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">← Back to Dashboard</a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <h4>Test XSS Payload</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('vuln_xss') }}" method="post">
+                            <div class="form-group">
+                                <label>Enter Message:</label>
+                                <input type="text" name="msg" class="form-control" placeholder="Enter your message">
+                            </div>
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </form>
+                        {% if reflected is not none %}
+                        <div class="mt-3">
+                            <h5>Result:</h5>
+                            <div class="bg-secondary p-3">{{ reflected|safe }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card bg-dark text-white mt-3">
+                    <div class="card-header">
+                        <h5>Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>XSS allows attackers to inject malicious scripts into web pages viewed by other users.</p>
+                        <p><strong>Example Payloads:</strong></p>
+                        <ul>
+                            <li><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></li>
+                            <li><code>&lt;img src=x onerror=alert('XSS')&gt;</code></li>
+                            <li><code>&lt;svg onload=alert('XSS')&gt;</code></li>
+                        </ul>
+                        <p><strong>Mitigation:</strong> Escape/validate user input, use Content Security Policy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

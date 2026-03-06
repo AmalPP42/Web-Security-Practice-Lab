@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Command Injection - Vulnerability Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body class="img js-fullheight" style="background-image: url('{{ url_for('static', filename='images/bg.jpg') }}');">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center mb-4">
+                <h2 class="heading-section">Command Injection</h2>
+                <p class="text-warning">⚠️ This is a vulnerable endpoint for educational purposes</p>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">← Back to Dashboard</a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <h4>Execute Shell Command</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('vuln_cmd') }}" method="post">
+                            <div class="form-group">
+                                <label>Enter Command:</label>
+                                <input type="text" name="cmd" class="form-control" placeholder="e.g., ls, whoami, cat /etc/passwd">
+                            </div>
+                            <button type="submit" class="btn btn-danger">Execute</button>
+                        </form>
+                        {% if output is defined %}
+                        <div class="mt-4">
+                            <h5>Output:</h5>
+                            <pre class="bg-secondary text-white p-3">{{ output }}</pre>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card bg-dark text-white mt-3">
+                    <div class="card-header">
+                        <h5>Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>This vulnerability allows attackers to execute arbitrary shell commands on the server by injecting shell commands into input fields.</p>
+                        <p><strong>Mitigation:</strong> Validate and sanitize all user inputs, avoid using shell commands with user data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

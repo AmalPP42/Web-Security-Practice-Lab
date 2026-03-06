@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body class="img js-fullheight" style="background-image: url('{{ url_for('static', filename='images/bg.jpg') }}');">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center mb-5">
+                <h2 class="heading-section">Dashboard</h2>
+                <p>Welcome to your dashboard! You have successfully logged in.</p>
+                {% if user %}
+                <p>Logged in as: <strong>{{ user }}</strong></p>
+                {% endif %}
+                <!-- show session for hijack learning -->
+                <p>Your session cookie value (copy-me):<br>
+                   <code>{{ request.cookies.get('session') }}</code>
+                </p>
+
+                <h4>Vulnerability Playground</h4>
+                <div class="row mt-4">
+                    <!-- Command Injection Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Command Injection</h5>
+                                <p class="card-text">Explore OS command injection vulnerabilities</p>
+                                <a href="{{ url_for('vuln_cmd_page') }}" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- File Upload Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-warning">
+                            <div class="card-body">
+                                <h5 class="card-title">File Upload</h5>
+                                <p class="card-text">Test insecure file upload functionality</p>
+                                <a href="{{ url_for('vuln_upload_page') }}" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SQL Injection Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">SQL Injection</h5>
+                                <p class="card-text">Exploit SQL injection vulnerabilities</p>
+                                <a href="{{ url_for('vuln_sqli_page') }}" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- XSS Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">XSS</h5>
+                                <p class="card-text">Test cross-site scripting attacks</p>
+                                <a href="{{ url_for('vuln_xss_page') }}" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- IDOR Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">IDOR</h5>
+                                <p class="card-text">Explore insecure direct object references</p>
+                                <a href="{{ url_for('vuln_idor_page') }}" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary">Log Out</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
